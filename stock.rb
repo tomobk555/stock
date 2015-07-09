@@ -6,7 +6,6 @@ require 'jpstock'
 require "io/console"
 
 #stock code
-#stock = JpStock.price(:code => 3758 )
 
 begin
 
