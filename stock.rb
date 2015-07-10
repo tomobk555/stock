@@ -3,27 +3,31 @@
 
 require 'rubygems'
 require 'jpstock'
-require "io/console"
+require 'io/console'
+require 'curses'
 
-#stock code
+include Curses
+
+#stock code assign
 
 begin
 
 stocks = ARGV[0]
-stock = JpStock.price(:code => stocks )
-name = JpStock.sector(:code => stocks )
 
 view_thread = Thread.new do
   loop do
+
+   stock = JpStock.price(:code => stocks )
+   name = JpStock.sector(:code => stocks )
+
    print "\033[2K\r#{name.company_name}"
-   sleep 1
-    print "\033[2K\r#{stock.open}## Opening Price!! ##"
-   sleep 1
+    sleep 1
+   print "\033[2K\r#{stock.open}## Opening Price!! ##"
+    sleep 1
    print "\033[2K\r#{stock.close}## Current Price!! ##"
-   sleep 1
+    sleep 1
   end
 end
-
 
 input_thread = Thread.new do
   while STDIN.getch != "q"; end
@@ -37,5 +41,6 @@ input_thread.join
 rescue => e
 
 puts "Please assign correct code !!"
+setpos(0, 0)
 
 end
