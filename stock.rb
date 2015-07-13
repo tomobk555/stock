@@ -30,7 +30,6 @@ view_thread = Thread.new do
 #stock code assign
 
   stocks = ARGV[0]
-  today = Date.today
 
   stock = JpStock.price(:code => stocks )
   name = JpStock.sector(:code => stocks )
